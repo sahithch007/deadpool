@@ -1,0 +1,26 @@
+!pip install dnspython
+!pip install pymongo[srv]
+
+import pymongo
+from pymongo import MongoClient
+
+client = pymongo.MongoClient("mongodb+srv://sahith:12345@cluster0.ww1ql.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+db = client.test
+data=db.football
+
+name = input("Enter your name: ")
+phone_number = input("Enter your phone: ")
+_id = input("Enter your email id: ")
+
+if phone_number.isdigit()==True and len(phone_number)==10 and (_id.endswith("@gmail.com") or _id.endswith("@yahoo.com"))and _id[:-20].isalnum() == True :
+  personal_info={"_id":_id,
+                 "Name": name.capitalize(),
+                 "Phone number": phone_number
+                 }
+
+  data.insert_one(personal_info) 
+
+  print("Data is stored successfully")
+else:
+  print("Invalid data, please check and re-enter")
+
